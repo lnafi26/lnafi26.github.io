@@ -47,16 +47,16 @@
     article.style.setProperty('--p-paper', project.theme.paper);
     const content = make('div', 'project-content');
     const top = make('div', 'project-top');
-    append(top, make('span', 'project-serial', `PROJECT / ${collection === 'compound' ? 'C' : 'W'}—${pad(index + 1)}`), make('span', 'project-status', project.status));
+    append(top, make('span', 'project-serial', `Project ${pad(index + 1)} of ${pad(projects.length)}`), make('span', 'project-status', project.status));
     const body = make('div', 'project-body');
     const copy = make('div', 'project-copy');
     append(copy, make('div', 'project-category', project.category), make('h2', 'project-title', project.name), make('p', 'project-line', project.line), make('p', 'project-what', project.what));
     const how = make('div', 'project-how');
-    append(how, make('span', 'project-small-label', 'HOW IT WORKS'), make('p', '', project.how));
+    append(how, make('span', 'project-small-label', 'How it works'), make('p', '', project.how));
     copy.append(how);
     const media = make('figure', 'project-media project-media-type');
-    const mediaTop = make('span', 'project-media-top', 'PROJECT / VISUAL IDENTITY');
-    const mediaBottom = make('figcaption', '', 'ACTUAL PROJECT ARTWORK / COMING WHEN AVAILABLE');
+    const mediaTop = make('span', 'project-media-top', 'A glimpse of the project');
+    const mediaBottom = make('figcaption', '', 'A real project image will go here when available.');
     const typeArtwork = make('div', 'project-type-art');
     const typeName = make('span', 'project-type-name', project.name);
     const typeRule = make('span', 'project-type-rule');
@@ -70,14 +70,14 @@
       img.width = 550; img.height = 470;
       img.loading = index === active ? 'eager' : 'lazy';
       typeArtwork.replaceWith(img);
-      mediaBottom.textContent = project.artCaption || 'PROJECT IMAGE';
+      mediaBottom.textContent = project.artCaption || 'Project image';
     }
     append(body, copy, media);
     const lower = make('div', 'project-lower');
     const timeline = make('dl', 'project-timeline');
-    append(timeline, field('CONCEPT', project.dates.concept), field('R&D', project.dates.rnd), field('LAUNCH', project.dates.launch));
+    append(timeline, field('Concept', project.dates.concept), field('R&D', project.dates.rnd), field('Launch', project.dates.launch));
     const tech = make('div', 'project-tech');
-    append(tech, make('span', 'project-small-label', 'BUILT WITH / EXPLORING'));
+    append(tech, make('span', 'project-small-label', 'Tools and technologies'));
     const tagRow = make('div', 'tag-row');
     project.stack.forEach(item => tagRow.append(make('span', 'tag', item)));
     tech.append(tagRow);
@@ -88,7 +88,7 @@
         a.href = link.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
         linkArea.append(a);
       });
-    } else linkArea.append(make('span', 'project-private', `${project.privateLabel || 'NOT PUBLIC YET'} ↗`));
+    } else linkArea.append(make('span', 'project-private', project.privateLabel || 'Not public yet')); 
     append(lower, timeline, tech, linkArea);
     append(content, top, body, lower);
     article.append(content);

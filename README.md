@@ -1,17 +1,15 @@
-# Labib Nafi — Portfolio (v2)
+# Labib Nafi — Portfolio (v3)
 
-A three-page static portfolio for GitHub Pages. The homepage introduces Labib and links to The Compound (applications) and The Watchtower (AI assistants). Project details live in `js/projects.js`. All project entries share one layout, color themes remain individual, and the perspective carousel is preserved.
+A warm, simple three-page GitHub Pages site. The home page introduces Labib; The Compound and The Watchtower are equal halves of one work collection, with a consistent carousel and project cards.
 
-## Deploy / update
+## Deploy the update
 
-1. Extract the ZIP. Upload **the contents** of this folder to the root of your `lnafi26.github.io` repository (not the ZIP or an enclosing folder). Replace the corresponding existing files and delete obsolete generated illustration assets (`assets/headquarters.svg`, `assets/syncora.svg`, `assets/sentry.svg`, `assets/dex.svg`, `assets/robert.svg`) if desired.
-2. Commit the changes. GitHub Pages will redeploy from the existing `main` / root configuration.
-3. Refresh the page; use a hard refresh if your browser shows an old cached stylesheet.
+Extract the ZIP and upload **its contents** to the root of `lnafi26.github.io` on `main`, replacing the existing matching paths. GitHub Pages will redeploy using your existing settings. Do not upload the ZIP itself or a parent folder. Hard-refresh if the browser shows the old CSS.
 
-## Edit projects
+The old v1/v2 artwork is not used. It can be removed from `assets/` in your repository when convenient.
 
-Update `js/projects.js`. Use `name: 'Project Sentry'` for the home-network app and uppercase names for agents such as DEX and ROBERT. Dates use `MM/YY` or `null` when unconfirmed/not launched. Public URLs only: private repo links should not be published.
+## Project content
 
-Project media is currently purposefully typographic, not a fake project screenshot. To use a real logo/screenshot later, set `mediaType: 'image'`, `art: 'assets/your-real-image.png'`, and an appropriate `artAlt` on that project. Upload the file into `assets/`.
+Edit `js/projects.js` to update text, dates (`MM/YY` or `null` if unconfirmed), colors and public URLs. Add real project images later via `mediaType: 'image'`, `art: 'assets/your-image.png'` and `artAlt`. Keep private repository URLs out of public source. Project Sentry is title case; DEX and ROBERT are uppercase agent names.
 
-No login, backend, build tooling, tracking, or external hosting service is required.
+The pages need no build process, external fonts, logins, backend, tracker, or external hosting.
