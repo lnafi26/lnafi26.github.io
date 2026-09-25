@@ -28,7 +28,7 @@
     return el;
   };
   const append = (parent, ...items) => { items.forEach(item => parent.append(item)); return parent; };
-  const pad = n => String(n).padStart(2, '0');
+  const pad = n => String(n);
   const field = (label, value) => {
     const wrap = make('div', 'date-field');
     append(wrap, make('dt', '', label), make('dd', '', value || '—'));
@@ -41,13 +41,9 @@
     article.dataset.id = project.id;
     article.setAttribute('aria-roledescription', 'slide');
     article.setAttribute('aria-label', `${pad(index + 1)} of ${pad(projects.length)}: ${project.name}`);
-    article.style.setProperty('--p-base', project.theme.base);
-    article.style.setProperty('--p-accent', project.theme.accent);
-    article.style.setProperty('--p-secondary', project.theme.secondary);
-    article.style.setProperty('--p-paper', project.theme.paper);
     const content = make('div', 'project-content');
     const top = make('div', 'project-top');
-    append(top, make('span', 'project-serial', `Project ${pad(index + 1)} of ${pad(projects.length)}`), make('span', 'project-status', project.status));
+    append(top, make('span', 'project-serial', 'From my portfolio'), make('span', 'project-status', project.status));
     const body = make('div', 'project-body');
     const copy = make('div', 'project-copy');
     append(copy, make('div', 'project-category', project.category), make('h2', 'project-title', project.name), make('p', 'project-line', project.line), make('p', 'project-what', project.what));
@@ -55,8 +51,14 @@
     append(how, make('span', 'project-small-label', 'How it works'), make('p', '', project.how));
     copy.append(how);
     const media = make('figure', 'project-media project-media-type');
-    const mediaTop = make('span', 'project-media-top', 'A glimpse of the project');
-    const mediaBottom = make('figcaption', '', 'A real project image will go here when available.');
+    // Identity boundary: set project colors on the media ONLY. The project card,
+    // carousel, controls, navigation and page always inherit the site palette.
+    media.style.setProperty('--p-base', project.theme.base);
+    media.style.setProperty('--p-accent', project.theme.accent);
+    media.style.setProperty('--p-secondary', project.theme.secondary);
+    media.style.setProperty('--p-paper', project.theme.paper);
+    const mediaTop = make('span', 'project-media-top', 'Project visual');
+    const mediaBottom = make('figcaption', '', 'Project image coming soon.');
     const typeArtwork = make('div', 'project-type-art');
     const typeName = make('span', 'project-type-name', project.name);
     const typeRule = make('span', 'project-type-rule');
@@ -100,7 +102,7 @@
     const button = make('button', 'picker-item');
     button.type = 'button';
     button.dataset.select = String(index);
-    append(button, make('span', 'picker-index', pad(index + 1)), make('span', 'picker-name', project.name), make('span', 'picker-status', project.status));
+    append(button, make('span', 'picker-name', project.name));
     button.addEventListener('click', () => goTo(index));
     picker.append(button);
     return slide;
