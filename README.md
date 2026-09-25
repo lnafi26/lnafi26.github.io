@@ -3,7 +3,7 @@
 A three-page, static GitHub Pages portfolio with two project wings:
 
 - **`index.html`** — headquarters, professional introduction, social links and the two entrances.
-- **`compound.html`** — software and systems (Syncora, SENTRY).
+- **`compound.html`** — software and systems (Syncora, Sentry).
 - **`watchtower.html`** — AI assistants and agents (DEX, ROBERT).
 
 The project uses original SVG concept illustrations, plain HTML/CSS/JavaScript, and no packages, account system, database, backend, analytics or external asset CDNs. The landing page can be served from the repository root or from `username.github.io` without any URL rewriting.
