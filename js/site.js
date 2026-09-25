@@ -172,7 +172,8 @@
       tab.setAttribute('aria-label', `Show ${projects[index].name}${selected ? ', current project' : ''}`);
     });
     current.textContent = pad(active + 1);
-    progress.style.width = `${((active + 1) / projects.length) * 100}%`;
+    progress.style.width = `${100 / projects.length}%`;
+    progress.style.transform = `translateX(${active * 100}%)`;
     prev.disabled = active === 0;
     next.disabled = active === projects.length - 1;
   };
