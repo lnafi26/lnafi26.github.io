@@ -47,20 +47,31 @@
     article.style.setProperty('--p-paper', project.theme.paper);
     const content = make('div', 'project-content');
     const top = make('div', 'project-top');
-    append(top, make('span', 'project-serial', `DOSSIER / ${collection === 'compound' ? 'C' : 'W'}—${pad(index + 1)}`), make('span', 'project-status', project.status));
+    append(top, make('span', 'project-serial', `PROJECT / ${collection === 'compound' ? 'C' : 'W'}—${pad(index + 1)}`), make('span', 'project-status', project.status));
     const body = make('div', 'project-body');
     const copy = make('div', 'project-copy');
     append(copy, make('div', 'project-category', project.category), make('h2', 'project-title', project.name), make('p', 'project-line', project.line), make('p', 'project-what', project.what));
     const how = make('div', 'project-how');
     append(how, make('span', 'project-small-label', 'HOW IT WORKS'), make('p', '', project.how));
     copy.append(how);
-    const media = make('figure', 'project-media');
-    const img = make('img', 'project-art');
-    img.src = project.art;
-    img.alt = project.artAlt;
-    img.width = 550; img.height = 470;
-    img.loading = index === active ? 'eager' : 'lazy';
-    append(media, make('span', 'project-media-top', `${project.name} / VISUAL STUDY`), img, make('figcaption', '', project.artCaption));
+    const media = make('figure', 'project-media project-media-type');
+    const mediaTop = make('span', 'project-media-top', 'PROJECT / VISUAL IDENTITY');
+    const mediaBottom = make('figcaption', '', 'ACTUAL PROJECT ARTWORK / COMING WHEN AVAILABLE');
+    const typeArtwork = make('div', 'project-type-art');
+    const typeName = make('span', 'project-type-name', project.name);
+    const typeRule = make('span', 'project-type-rule');
+    const typeCategory = make('span', 'project-type-category', project.category);
+    append(typeArtwork, typeName, typeRule, typeCategory);
+    append(media, mediaTop, typeArtwork, mediaBottom);
+    // When real project assets are ready, set project.mediaType = 'image' and project.art to their path.
+    if (project.mediaType === 'image' && project.art) {
+      const img = make('img', 'project-art');
+      img.src = project.art; img.alt = project.artAlt || `${project.name} project artwork`;
+      img.width = 550; img.height = 470;
+      img.loading = index === active ? 'eager' : 'lazy';
+      typeArtwork.replaceWith(img);
+      mediaBottom.textContent = project.artCaption || 'PROJECT IMAGE';
+    }
     append(body, copy, media);
     const lower = make('div', 'project-lower');
     const timeline = make('dl', 'project-timeline');
