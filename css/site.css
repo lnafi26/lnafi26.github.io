@@ -187,7 +187,7 @@ h1,h2,h3,p,figure{margin:0}
 .deck-progress{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:650;font-variant-numeric:tabular-nums}
 .deck-separator{color:var(--muted)}
 .deck-progress-track{display:block;width:95px;height:3px;background:#353044;border-radius:4px;overflow:hidden;margin-left:6px}
-.deck-progress-track span{height:100%;display:block;background:var(--amber);transition:width .3s}
+.deck-progress-track span{height:100%;display:block;background:var(--amber);transition:transform .3s ease,width .3s ease}
 .deck-controls{display:flex;gap:8px}
 .deck-button{background:var(--surface-raised);border:1px solid var(--line-strong);border-radius:8px;padding:8px 14px;color:var(--eggshell);font-size:12px;cursor:pointer}
 .deck-button:hover:not(:disabled){border-color:var(--amber)}
