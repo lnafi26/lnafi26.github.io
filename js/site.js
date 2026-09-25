@@ -29,11 +29,52 @@
   };
   const append = (parent, ...items) => { items.forEach(item => parent.append(item)); return parent; };
   const pad = n => String(n);
-  const field = (label, value) => {
-    const wrap = make('div', 'date-field');
-    append(wrap, make('dt', '', label), make('dd', '', value || '—'));
-    if (!value) wrap.querySelector('dd').setAttribute('aria-label', `${label}: not confirmed or not launched`);
-    return wrap;
+  // All visible stage labels and the current state are derived from this one data object.
+  // Set a phase start to MM/YY to begin it; set its end to MM/YY when complete.
+  const range = phase => !phase.start ? 'Pending' : phase.end ? `${phase.start}–${phase.end}` : `${phase.start}–`;
+  const launchLabel = phase => phase.date || (phase.anticipated ? `Anticipated ${phase.anticipated}` : 'Pending');
+  const currentStage = phases => {
+    if (phases.launch.date) return { label: 'Launched', key: 'launch' };
+    if (phases.testing.end) return { label: 'Testing & Refinement complete', key: 'testing' };
+    if (phases.testing.start) return { label: 'Testing & Refinement', key: 'testing' };
+    if (phases.rnd.end) return { label: 'R&D complete', key: 'rnd' };
+    if (phases.rnd.start) return { label: 'R&D', key: 'rnd' };
+    return { label: 'Concept', key: 'concept' };
+  };
+  const makeState = project => {
+    const phases = project.phases;
+    const now = currentStage(phases);
+    const details = make('details', 'project-state');
+    const summary = make('summary', 'state-summary');
+    append(summary,
+      make('span', 'state-summary-label', 'Current state'),
+      make('strong', 'state-summary-value', now.label),
+      make('span', 'state-summary-action', 'View timeline')
+    );
+    const panel = make('div', 'state-history');
+    const list = make('ol', 'milestone-list');
+    const stages = [
+      { key: 'concept', name: 'Concept', value: phases.concept || 'Pending' },
+      { key: 'rnd', name: 'R&D', value: range(phases.rnd), note: project.rndNote },
+      { key: 'testing', name: 'Testing & Refinement', value: range(phases.testing) },
+      { key: 'launch', name: 'Launch', value: launchLabel(phases.launch) }
+    ];
+    const order = ['concept', 'rnd', 'testing', 'launch'];
+    const activeIndex = order.indexOf(now.key);
+    stages.forEach((stage, index) => {
+      const row = make('li', 'milestone-step');
+      row.classList.add(index === activeIndex ? 'is-current' : index < activeIndex ? 'is-complete' : 'is-pending');
+      const marker = make('span', 'milestone-marker');
+      marker.setAttribute('aria-hidden', 'true');
+      const copy = make('div', 'milestone-copy');
+      append(copy, make('span', 'milestone-name', stage.name), make('span', 'milestone-date', stage.value));
+      if (stage.note) copy.append(make('span', 'milestone-note', stage.note));
+      append(row, marker, copy);
+      list.append(row);
+    });
+    append(panel, make('span', 'state-panel-title', 'Project timeline'), list);
+    append(details, summary, panel);
+    return details;
   };
   const makeCard = (project, index) => {
     const article = make('article', 'project-slide');
@@ -43,7 +84,7 @@
     article.setAttribute('aria-label', `${pad(index + 1)} of ${pad(projects.length)}: ${project.name}`);
     const content = make('div', 'project-content');
     const top = make('div', 'project-top');
-    append(top, make('span', 'project-serial', 'From my portfolio'), make('span', 'project-status', project.status));
+    append(top, make('span', 'project-serial', 'From my portfolio'));
     const body = make('div', 'project-body');
     const copy = make('div', 'project-copy');
     append(copy, make('div', 'project-category', project.category), make('h2', 'project-title', project.name), make('p', 'project-line', project.line), make('p', 'project-what', project.what));
@@ -76,8 +117,7 @@
     }
     append(body, copy, media);
     const lower = make('div', 'project-lower');
-    const timeline = make('dl', 'project-timeline');
-    append(timeline, field('Concept', project.dates.concept), field('R&D', project.dates.rnd), field('Launch', project.dates.launch));
+    const state = makeState(project);
     const tech = make('div', 'project-tech');
     append(tech, make('span', 'project-small-label', 'Tools and technologies'));
     const tagRow = make('div', 'tag-row');
@@ -91,7 +131,7 @@
         linkArea.append(a);
       });
     } else linkArea.append(make('span', 'project-private', project.privateLabel || 'Not public yet')); 
-    append(lower, timeline, tech, linkArea);
+    append(lower, state, tech, linkArea);
     append(content, top, body, lower);
     article.append(content);
     return article;
@@ -123,6 +163,7 @@
       // Inactive cards are visual scenery, not duplicate keyboard stops.
       if ('inert' in slide) slide.inert = index !== active;
       slide.querySelectorAll('a').forEach(a => { a.tabIndex = index === active ? 0 : -1; });
+      if (index !== active) slide.querySelectorAll('.project-state[open]').forEach(item => { item.open = false; });
     });
     tabs.forEach((tab, index) => {
       const selected = index === active;

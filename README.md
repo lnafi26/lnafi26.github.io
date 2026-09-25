@@ -1,33 +1,56 @@
-# Labib Nafi — Portfolio (v5)
+# Labib Nafi — Portfolio (v6)
 
-Three static pages for GitHub Pages: `index.html` (personal landing page), `compound.html` (software projects) and `watchtower.html` (AI assistants). No account system, database, build process, downloaded fonts, external scripts or generated illustrations.
+Three static GitHub Pages pages: `index.html` (about me), `compound.html` (applications), `watchtower.html` (AI assistants). No backend, account, build process, or external scripts. Your live GitHub Pages configuration stays the same.
 
-## Visual system
+## What changed from v5
 
-Site-wide colors from the chosen Coolors palette: `#03071E`, `#370617`, `#6A040F`, `#9D0208`, `#D00000`, `#DC2F02`, `#E85D04`, `#F48C06`, `#FAA307`, `#FFBA08`. Body text is Eggshell White `#F0EAD6`. The blue-black and eggshell make up almost all of the layout; saturated colors are used selectively. The only decorative gradient is the slim band joining the homepage's two taller-than-wide collection links. Each project keeps its separate palette **only inside its artwork area**, enclosed in a neutral card.
+- Centered the two slim/tall homepage navigation cards beneath their "Explore my work" heading, so the empty space is balanced on both sides rather than all appearing on the right.
+- Replaced the old three-date strip and the redundant top-right development-status badge with one expandable **Current state** control in each project card.
+- Clicking "View timeline" opens a four-step timeline: **Concept → R&D → Testing & Refinement → Launch**. This is an accessible native HTML disclosure (`<details>`), not a fourth page. The existing carousel still works.
+- Current state is **derived automatically** from the dated milestones. All four projects start with the dates and anticipated launch windows provided by Labib.
+- Preserved the site-wide palette and each project's **strictly separate** identity colors within the image/visual frame only.
 
-## Publish the update
+## Where to update project progress
 
-1. Download and extract the v5 ZIP. Back up your existing repository if you want to preserve your older website.
-2. Replace the **contents of the root** of `lnafi26.github.io` with the extracted files and folders (not the ZIP, and not an enclosing `labib-portfolio-v4` folder). Commit the changes to your existing `main` branch.
-3. Your GitHub Pages configuration does not need to change. Reload the browser after deployment; a hard refresh may be needed for cached CSS.
+**Open `js/projects.js`.** This is the one file you edit for *both* the Compound and Watchtower. Find the project by its `id` (`syncora`, `sentry`, `dex`, or `robert`), then edit its `phases` block. Example:
 
-The older SVG illustrations from earlier versions are not used by this version. You may delete the unreferenced artwork files from your repository later.
+```js
+phases: {
+  concept: '07/26',
+  rnd: { start: '07/26', end: null },
+  testing: { start: null, end: null },
+  launch: { date: null, anticipated: 'Winter 2026' }
+},
+```
 
-## Update projects
+**The dates mean:**
 
-Edit `js/projects.js` for project descriptions, dates (`MM/YY` or `null` for unconfirmed / not launched), public links, and individual colors. Do not publish private repository URLs. To display real artwork later, add `mediaType: 'image'`, and set `art` and `artAlt` to a real image. The cards, timeline, and carousel are shared by both collections. Applications use title case: Project Syncora and Project Sentry. AI assistant names DEX and ROBERT are all caps.
-
-## Strict separation of site colors and project colors
-
-The site-wide palette and Eggshell White apply to every page, card, breadcrumb, tab, caption, timeline and carousel control. Per-project colors are set **only on the `.project-media` frame** by `js/site.js`; they must never be placed on the outer `.project-slide` card or the site navigation. When replacing a placeholder with a real logo/screenshot/visualizer, confine it to this frame.
-
-| Portfolio item | Media background | Media text and accents |
+| Field | What to enter | What visitors see |
 |---|---|---|
-| Project Syncora | Deep purple `#211440` | Purple `#B08CFF`, cyan `#70E4EF` / `#BFF7FF` |
-| Project Sentry | Black `#101010` | Gold `#E8BD58` |
-| DEX | Navy blue `#101C3B` | White `#FFFFFF` |
-| ROBERT | Gold `#E8BD58` | Black `#101010` |
+| `concept` | `'07/26'` | `07/26` |
+| `rnd.start` | `'07/26'`; `null` before R&D starts | `07/26–` while ongoing, otherwise `Pending` |
+| `rnd.end` | `null` while ongoing; e.g. `'09/26'` once R&D is finished | `07/26–09/26` |
+| `testing.start` | `null` before testing; then e.g. `'09/26'` | `Pending` or `09/26–` |
+| `testing.end` | `null` during testing; e.g. `'10/26'` once complete | `09/26–10/26` |
+| `launch.date` | `null` until actually launched; then `'12/26'` | An actual launch date and current state `Launched` |
+| `launch.anticipated` | `'Winter 2026'`, `'Early 2027'`, etc. | `Anticipated Winter 2026` until an actual launch date is entered |
 
-Project Sentry and ROBERT deliberately reverse the **same exact** black/gold colors. No project-specific gradients or crossover with the site palette.
+Use **exactly `MM/YY`** for actual dates. Keep the quotes around dates and `null` unquoted. The trailing dash in `07/26–` means R&D is still ongoing. For ROBERT, the separate `rndNote` line explains that its R&D is awaiting completion of Project Sentry; update or remove that note when it ceases to apply.
 
+**To finish R&D:** Set `rnd.end` to the completion month. The summary automatically becomes `R&D complete` until the next phase starts. **To start Testing & Refinement:** Set `testing.start` to the month it begins. The summary becomes `Testing & Refinement`; when finished, set `testing.end`. **To launch:** Set `launch.date` to the real launch month; the expected launch wording disappears automatically. Do not set a phase start merely because you anticipate reaching it.
+
+No need to edit `js/site.js`, HTML, CSS, or a separate status label when updating milestones. To add a project, copy an existing project object in `js/projects.js`, assign a unique `id`, and fill in the same `phases` fields.
+
+## Colors: keep the palettes separate
+
+The **website's overarching palette** is the original Coolors selection: `#03071E`, `#370617`, `#6A040F`, `#9D0208`, `#D00000`, `#DC2F02`, `#E85D04`, `#F48C06`, `#FAA307`, and `#FFBA08`, with Eggshell White `#F0EAD6` for body text. It controls the pages, navigation, descriptions, shared project cards, timeline, and carousel controls.
+
+The **project-only palettes** belong exclusively inside `.project-media`: Project Syncora = purple/cyan, Project Sentry = black/gold, DEX = navy/white, ROBERT = gold/black (the exact reversal of Project Sentry). `js/site.js` sets each project's `--p-*` variables on `.project-media` only. Do not put those colors on an outer card, page, or shared control, or blend them into the overall site palette. Replace media placeholders with real project screenshots or logos whenever ready (`mediaType: 'image'`, `art`, `artAlt`).
+
+## Publish
+
+1. Download and extract the v6 ZIP. The extracted *contents* (including `index.html`, `compound.html`, `watchtower.html`, `css/`, `js/`, and `assets/`) go at the repository root. Do **not** upload the ZIP itself or enclose all the files inside another directory.
+2. Back up your previous version if you wish. Replace v5 files with the new files in your existing `lnafi26.github.io` repository and commit them to the configured `main` branch.
+3. GitHub Pages deploys the update automatically. Refresh the site after deployment; a hard refresh may be needed if CSS/JavaScript is cached.
+
+Never put private repository links, API keys, or secrets in public static site files. These milestones describe **your intended schedule**, not guaranteed launch dates.

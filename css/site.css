@@ -1,4 +1,4 @@
-/* Labib Nafi portfolio — v5. A calm ink-blue canvas with one restrained warm spectrum.
+/* Labib Nafi portfolio — v6. A calm ink-blue canvas with one restrained warm spectrum.
    The site palette is separate from the visual identities of individual projects. */
 :root {
   --ink-black: #03071E;
@@ -61,10 +61,10 @@ h1,h2,h3,p,figure{margin:0}
 .button-quiet:hover{border-color:var(--amber);color:var(--amber)}
 /* Two narrow, taller-than-wide doors within ONE shared container. */
 .work-section{padding:56px 0 106px;border-top:1px solid var(--line)}
-.work-intro{max-width:630px;margin-bottom:29px}
+.work-intro{width:min(100%,620px);margin:0 auto 29px}
 .work-intro h2{font-size:clamp(31px,3.8vw,46px);letter-spacing:-.046em;line-height:1.2;font-weight:690}
 .work-intro p{margin-top:10px;color:var(--muted);font-size:15px;line-height:1.7;max-width:600px}
-.work-pair{width:min(100%,620px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:1px solid var(--line-strong);border-radius:15px;overflow:hidden;background:var(--surface);position:relative}
+.work-pair{width:min(100%,620px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:1px solid var(--line-strong);border-radius:15px;overflow:hidden;background:var(--surface);position:relative;margin-inline:auto}
 /* The only decorative gradient on the site: a three-pixel band joining the two halves. */
 .work-pair::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,var(--black-cherry) 0%,var(--brick-ember) 40%,var(--saffron) 75%,var(--amber) 100%);z-index:1;pointer-events:none}
 .work-half{min-width:0;min-height:358px;padding:24px 24px 19px;display:flex;flex-direction:column;transition:background .18s}
@@ -107,7 +107,6 @@ h1,h2,h3,p,figure{margin:0}
 .project-content{padding:28px 30px;display:flex;flex-direction:column;height:100%;gap:24px}
 .project-top{display:flex;align-items:center;justify-content:space-between;gap:15px}
 .project-serial{font-size:12px;color:var(--muted)}
-.project-status{font-size:11px;color:var(--eggshell);border:1px solid var(--line-strong);border-radius:100px;padding:4px 10px;white-space:nowrap}
 .project-body{display:grid;grid-template-columns:minmax(0,1.14fr) minmax(220px,.86fr);gap:28px;align-items:stretch}
 .project-copy{min-width:0}
 .project-category{font-size:12px;color:var(--amber);margin-bottom:8px}
@@ -125,10 +124,32 @@ h1,h2,h3,p,figure{margin:0}
 .project-type-category{font-size:12px;color:var(--p-secondary)}
 .project-media figcaption{font-size:11px;color:var(--p-secondary);opacity:.8}
 .project-art{width:100%;height:100%;object-fit:contain;max-height:330px;flex:1}
-.project-lower{display:grid;grid-template-columns:minmax(170px,.9fr) minmax(200px,1.4fr) auto;gap:20px;align-items:end;padding-top:20px;border-top:1px solid var(--line)}
-.project-timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0}
-.date-field dt{font-size:11px;color:var(--muted);margin-bottom:3px}
-.date-field dd{margin:0;font-size:14px;font-weight:690}
+.project-lower{display:grid;grid-template-columns:minmax(205px,.9fr) minmax(200px,1.4fr) auto;gap:20px;align-items:start;padding-top:20px;border-top:1px solid var(--line)}
+/* Native keyboard-accessible disclosure for each project's current phase + full timeline. */
+.project-state{min-width:0;align-self:start}
+.state-summary{list-style:none;display:flex;flex-direction:column;align-items:flex-start;gap:2px;cursor:pointer;border:1px solid var(--line-strong);border-radius:8px;padding:10px 12px;background:var(--surface);transition:border-color .18s,background .18s}
+.state-summary::-webkit-details-marker{display:none}
+.state-summary:hover,.project-state[open] .state-summary{border-color:var(--amber);background:#1B1C30}
+.state-summary-label{font-size:11px;color:var(--muted)}
+.state-summary-value{font-size:16px;line-height:1.4;font-weight:700;color:var(--eggshell)}
+.state-summary-action{color:var(--amber);font-size:11px;font-weight:650;margin-top:4px;display:flex;align-items:center;gap:7px}
+.state-summary-action::after{content:'⌄';font-size:16px;line-height:1;transition:transform .18s}
+.project-state[open] .state-summary-action::after{transform:rotate(180deg)}
+.project-state[open] .state-summary-action{font-size:0}
+.project-state[open] .state-summary-action::before{content:'Hide timeline';font-size:11px}
+.state-history{padding:14px 12px 4px;background:var(--surface);border:1px solid var(--line);border-top:0;border-radius:0 0 8px 8px;margin-top:-4px}
+.state-panel-title{font-size:11px;color:var(--muted);font-weight:650}
+.milestone-list{list-style:none;margin:14px 0 0;padding:0}
+.milestone-step{display:grid;grid-template-columns:15px minmax(0,1fr);gap:10px;position:relative;padding-bottom:18px}
+.milestone-step:not(:last-child)::after{content:'';position:absolute;left:6px;top:13px;bottom:0;width:1px;background:var(--line-strong)}
+.milestone-marker{position:relative;z-index:1;width:13px;height:13px;margin-top:3px;border:2px solid var(--line-strong);background:var(--surface);border-radius:50%}
+.milestone-step.is-current .milestone-marker{border-color:var(--amber);background:var(--amber);box-shadow:0 0 0 3px rgba(255,186,8,.12)}
+.milestone-step.is-complete .milestone-marker{border-color:var(--amber)}
+.milestone-copy{display:flex;flex-direction:column;gap:2px;min-width:0}
+.milestone-name{font-weight:650;font-size:12px;color:var(--eggshell);line-height:1.4}
+.milestone-date{font-size:12px;font-variant-numeric:tabular-nums;color:var(--eggshell);line-height:1.5;overflow-wrap:anywhere}
+.milestone-step.is-pending .milestone-date{color:var(--muted)}
+.milestone-note{font-size:11px;color:var(--muted);line-height:1.45}
 .tag-row{display:flex;flex-wrap:wrap;gap:6px}
 .tag{font-size:11px;line-height:1.5;padding:5px 8px;background:#202238;border:1px solid var(--line);color:var(--eggshell);border-radius:5px}
 .project-outlink{font-size:12px;display:inline-flex;align-items:center;gap:4px;font-weight:720;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--amber)}
