@@ -4,23 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#03071E" />
+
   <meta
     name="description"
-    content="Connect with Labib Nafi — Freelance Solutions Architect."
+    content="Connect with Labib Nafi — Solutions Architect Consultant."
   />
 
   <title>Connect | Labib Nafi</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Source+Sans+3:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
   <style>
     :root {
       --ink-black: #03071E;
-      --surface: #101326;
-      --surface-2: #16182C;
-      --surface-hover: #1B1E35;
-
-      --eggshell: #F0EAD6;
-      --muted: rgba(240, 234, 214, 0.72);
-      --muted-2: rgba(240, 234, 214, 0.52);
 
       --night-bordeaux: #370617;
       --black-cherry: #6A040F;
@@ -32,41 +34,42 @@
       --orange: #FAA307;
       --amber: #FFBA08;
 
-      --border: rgba(240, 234, 214, 0.10);
-      --border-warm: rgba(255, 186, 8, 0.24);
-      --shadow: 0 18px 45px rgba(0, 0, 0, 0.17);
+      --eggshell: #F0EAD6;
+      --muted: rgba(240, 234, 214, 0.68);
+      --muted-soft: rgba(240, 234, 214, 0.46);
 
-      --radius: 16px;
+      --line: rgba(240, 234, 214, 0.17);
+      --line-strong: rgba(240, 234, 214, 0.28);
+
+      color-scheme: dark;
+      font-synthesis: none;
     }
 
-    * {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
     }
 
     html {
       background: var(--ink-black);
-      color-scheme: dark;
     }
 
     body {
       margin: 0;
       min-width: 320px;
-      min-height: 100vh;
+      min-height: 100svh;
+
       display: grid;
       place-items: center;
-      padding: 30px 20px;
 
-      background:
-        radial-gradient(
-          circle at top,
-          rgba(255, 186, 8, 0.045),
-          transparent 34%
-        ),
-        var(--ink-black);
+      padding: 40px 24px;
 
+      background: var(--ink-black);
       color: var(--eggshell);
 
       font-family:
+        "Source Sans 3",
         system-ui,
         -apple-system,
         BlinkMacSystemFont,
@@ -82,205 +85,210 @@
     }
 
     .connect-shell {
-      width: min(100%, 430px);
-    }
-
-    .identity {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .monogram {
-      width: 82px;
-      height: 82px;
-      display: grid;
-      place-items: center;
-
-      margin: 0 auto 22px;
-
-      border: 1px solid var(--border-warm);
-      border-radius: 50%;
-
-      background: var(--surface);
-      color: var(--amber);
-
-      box-shadow:
-        0 14px 34px rgba(0, 0, 0, 0.18),
-        inset 0 1px rgba(255, 255, 255, 0.025);
-
-      font-size: 1.65rem;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2rem, 8vw, 2.45rem);
-      font-weight: 650;
-      line-height: 1;
-      letter-spacing: -0.05em;
-    }
-
-    .role {
-      margin: 11px 0 0;
-      color: var(--amber);
-      font-size: 0.82rem;
-      font-weight: 650;
-      letter-spacing: 0.02em;
-    }
-
-    .intro {
-      max-width: 34rem;
-      margin: 19px auto 0;
-
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.7;
-    }
-
-    .connect-links {
-      display: grid;
-      gap: 13px;
-    }
-
-    .connect-card {
       position: relative;
-      overflow: hidden;
-
-      min-height: 82px;
-
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 18px;
-
-      padding: 18px 20px;
-
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.012),
-          transparent 55%
-        ),
-        var(--surface);
-
-      box-shadow: var(--shadow);
-
-      text-decoration: none;
-
-      transition:
-        transform 150ms ease,
-        border-color 150ms ease,
-        background 150ms ease,
-        box-shadow 150ms ease;
+      width: min(100%, 660px);
+      padding-top: 30px;
     }
 
-    .connect-card::before {
+    /*
+      One intentional decorative treatment:
+      the site's warm spectrum appears once and nowhere else.
+    */
+    .connect-shell::before {
       content: "";
       position: absolute;
-      inset: 0 auto 0 0;
-      width: 3px;
+      top: 0;
+      left: 0;
+
+      width: 86px;
+      height: 3px;
 
       background: linear-gradient(
-        to bottom,
+        90deg,
+        var(--black-cherry),
         var(--brick-ember),
         var(--cayenne),
         var(--amber)
       );
-
-      opacity: 0.78;
     }
 
-    .connect-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--border-warm);
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 186, 8, 0.025),
-          transparent 58%
-        ),
-        var(--surface-hover);
-
-      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.22);
+    .identity {
+      padding-bottom: 46px;
     }
 
-    .connect-card:active {
-      transform: translateY(0) scale(0.99);
+    h1 {
+      margin: 0;
+
+      font-family:
+        "Bricolage Grotesque",
+        "Source Sans 3",
+        sans-serif;
+
+      font-size: clamp(3rem, 10vw, 5rem);
+      font-weight: 650;
+      line-height: 0.98;
+      letter-spacing: -0.06em;
     }
 
-    .connect-card:focus-visible {
-      outline: 2px solid var(--amber);
-      outline-offset: 3px;
+    .punctuation {
+      color: var(--amber);
     }
 
-    .card-copy {
+    .role {
+      margin: 18px 0 0;
+
+      color: var(--eggshell);
+
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .intro {
+      max-width: 520px;
+
+      margin: 14px 0 0;
+
+      color: var(--muted);
+
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    .connect-links {
+      border-top: 1px solid var(--line);
+    }
+
+    .connect-link {
+      min-height: 96px;
+
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 24px;
+
+      padding: 20px 0;
+
+      border-bottom: 1px solid var(--line);
+
+      text-decoration: none;
+
+      transition:
+        border-color 160ms ease,
+        color 160ms ease;
+    }
+
+    .connect-link:hover {
+      border-color: var(--line-strong);
+    }
+
+    .link-copy {
       min-width: 0;
     }
 
-    .card-title {
+    .link-title {
       display: block;
-      margin-bottom: 5px;
 
-      font-size: 1rem;
-      font-weight: 650;
-      letter-spacing: -0.015em;
+      font-family:
+        "Bricolage Grotesque",
+        "Source Sans 3",
+        sans-serif;
+
+      font-size: 1.35rem;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+
+      transition: color 160ms ease;
     }
 
-    .card-description {
+    .connect-link:hover .link-title {
+      color: var(--amber);
+    }
+
+    .link-description {
       display: block;
 
-      color: var(--muted-2);
-      font-size: 0.76rem;
+      margin-top: 5px;
+
+      color: var(--muted-soft);
+
+      font-size: 0.9rem;
       line-height: 1.45;
     }
 
-    .card-arrow {
-      color: var(--amber);
-      font-size: 1.05rem;
+    .link-arrow {
+      color: var(--muted);
+      font-size: 1.15rem;
       line-height: 1;
-      transition: transform 150ms ease;
+
+      transition:
+        color 160ms ease,
+        transform 160ms ease;
     }
 
-    .connect-card:hover .card-arrow {
+    .connect-link:hover .link-arrow {
+      color: var(--amber);
       transform: translate(2px, -2px);
     }
 
-    .footer-note {
-      margin: 34px 0 0;
-      text-align: center;
-
-      color: var(--muted-2);
-      font-size: 0.62rem;
-      font-weight: 650;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+    .connect-link.internal:hover .link-arrow {
+      transform: translateX(3px);
     }
 
-    @media (max-width: 380px) {
+    .connect-link:focus-visible {
+      outline: 3px solid var(--amber);
+      outline-offset: 7px;
+    }
+
+    .footer-note {
+      margin: 28px 0 0;
+
+      color: var(--muted-soft);
+
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 520px) {
       body {
-        padding-inline: 16px;
+        align-items: start;
+        padding: 48px 22px 36px;
       }
 
-      .connect-card {
-        padding: 17px;
+      .connect-shell {
+        padding-top: 24px;
+      }
+
+      .identity {
+        padding-bottom: 38px;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 16vw, 4.3rem);
+      }
+
+      .connect-link {
+        min-height: 88px;
+        gap: 18px;
+        padding: 18px 0;
+      }
+
+      .link-title {
+        font-size: 1.2rem;
+      }
+
+      .link-description {
+        font-size: 0.84rem;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .connect-card,
-      .card-arrow {
-        transition: none;
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
       }
 
-      .connect-card:hover {
-        transform: none;
-      }
-
-      .connect-card:hover .card-arrow {
+      .connect-link:hover .link-arrow {
         transform: none;
       }
     }
@@ -289,65 +297,76 @@
 
 <body>
   <main class="connect-shell">
-    <section class="identity" aria-labelledby="connect-name">
-      <div class="monogram" aria-hidden="true">LN</div>
 
-      <h1 id="connect-name">Labib Nafi</h1>
+    <header class="identity">
+      <h1>
+        Labib Nafi<span class="punctuation">.</span>
+      </h1>
 
-      <p class="role">Freelance Solutions Architect</p>
+      <p class="role">
+        Solutions Architect Consultant
+      </p>
 
       <p class="intro">
-        Great meeting you. Explore my work, connect with me professionally,
-        or take a look through my code.
+        Great meeting you. Here's the quickest way to explore my work,
+        see what I'm building, or stay connected professionally.
       </p>
-    </section>
+    </header>
 
     <nav class="connect-links" aria-label="Professional links">
-      <a class="connect-card" href="../">
-        <span class="card-copy">
-          <span class="card-title">Portfolio</span>
-          <span class="card-description">
-            Explore my work, experience, and projects
+
+      <a class="connect-link internal" href="../">
+        <span class="link-copy">
+          <span class="link-title">Portfolio</span>
+
+          <span class="link-description">
+            Explore my projects, applications, and AI assistants.
           </span>
         </span>
 
-        <span class="card-arrow" aria-hidden="true">↗</span>
+        <span class="link-arrow" aria-hidden="true">→</span>
       </a>
 
       <a
-        class="connect-card"
+        class="connect-link"
         href="https://www.linkedin.com/in/labib-n-0ab96a26a/"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span class="card-copy">
-          <span class="card-title">LinkedIn</span>
-          <span class="card-description">
-            Connect with me professionally
+        <span class="link-copy">
+          <span class="link-title">LinkedIn</span>
+
+          <span class="link-description">
+            Experience, professional background, and connections.
           </span>
         </span>
 
-        <span class="card-arrow" aria-hidden="true">↗</span>
+        <span class="link-arrow" aria-hidden="true">↗</span>
       </a>
 
       <a
-        class="connect-card"
+        class="connect-link"
         href="https://github.com/lnafi26"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span class="card-copy">
-          <span class="card-title">GitHub</span>
-          <span class="card-description">
-            Browse my code and public repositories
+        <span class="link-copy">
+          <span class="link-title">GitHub</span>
+
+          <span class="link-description">
+            Public repositories and the code behind my projects.
           </span>
         </span>
 
-        <span class="card-arrow" aria-hidden="true">↗</span>
+        <span class="link-arrow" aria-hidden="true">↗</span>
       </a>
+
     </nav>
 
-    <p class="footer-note">Let's build something great.</p>
+    <p class="footer-note">
+      Thanks for stopping by.
+    </p>
+
   </main>
 </body>
 </html>
