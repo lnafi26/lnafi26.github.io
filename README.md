@@ -1,5 +1,8 @@
 # Labib Nafi — Portfolio (v6)
 
+> **Before visual edits:** read `DESIGN.md`. It records the site-wide palette, project-color boundary, typography, interaction rules, and anti-generic design guardrails.
+
+
 Three static GitHub Pages pages: `index.html` (about me), `compound.html` (applications), `watchtower.html` (AI assistants). No backend, account, build process, or external scripts. Your live GitHub Pages configuration stays the same.
 
 ## What changed from v5

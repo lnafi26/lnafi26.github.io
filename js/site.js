@@ -83,8 +83,6 @@
     article.setAttribute('aria-roledescription', 'slide');
     article.setAttribute('aria-label', `${pad(index + 1)} of ${pad(projects.length)}: ${project.name}`);
     const content = make('div', 'project-content');
-    const top = make('div', 'project-top');
-    append(top, make('span', 'project-serial', 'From my portfolio'));
     const body = make('div', 'project-body');
     const copy = make('div', 'project-copy');
     append(copy, make('div', 'project-category', project.category), make('h2', 'project-title', project.name), make('p', 'project-line', project.line), make('p', 'project-what', project.what));
@@ -98,14 +96,13 @@
     media.style.setProperty('--p-accent', project.theme.accent);
     media.style.setProperty('--p-secondary', project.theme.secondary);
     media.style.setProperty('--p-paper', project.theme.paper);
-    const mediaTop = make('span', 'project-media-top', 'Project visual');
-    const mediaBottom = make('figcaption', '', 'Project image coming soon.');
+    const mediaBottom = make('figcaption', '', 'Visual in progress.');
     const typeArtwork = make('div', 'project-type-art');
     const typeName = make('span', 'project-type-name', project.name);
     const typeRule = make('span', 'project-type-rule');
     const typeCategory = make('span', 'project-type-category', project.category);
     append(typeArtwork, typeName, typeRule, typeCategory);
-    append(media, mediaTop, typeArtwork, mediaBottom);
+    append(media, typeArtwork, mediaBottom);
     // When real project assets are ready, set project.mediaType = 'image' and project.art to their path.
     if (project.mediaType === 'image' && project.art) {
       const img = make('img', 'project-art');
@@ -126,13 +123,13 @@
     const linkArea = make('div', 'project-links');
     if (project.links.length) {
       project.links.forEach(link => {
-        const a = make('a', 'project-outlink', `${link.label} ↗`);
+        const a = make('a', 'project-outlink', link.label);
         a.href = link.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
         linkArea.append(a);
       });
     } else linkArea.append(make('span', 'project-private', project.privateLabel || 'Not public yet')); 
     append(lower, state, tech, linkArea);
-    append(content, top, body, lower);
+    append(content, body, lower);
     article.append(content);
     return article;
   };
